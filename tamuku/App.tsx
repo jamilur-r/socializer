@@ -11,7 +11,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
-
+import BaseRoute from "./src/routes/BaseRoute";
 export default function App() {
   let [fontloaded] = useFonts({
     norm: Poppins_400Regular,
@@ -25,6 +25,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
+          <BaseRoute />
         </PersistGate>
       </Provider>
     );

@@ -26,7 +26,11 @@ const DB_URI = process.env.DB_URI || "mongodb://localhost:27017/tamuku";
     console.log(error);
   }
 })();
-
+app.get('/test', (req, res) => {
+  return res.status(200).json({
+    msg: 'TESTING API'
+  })
+})
 app.use("/", BaseRouter);
 
 app.listen(PORT, () =>
