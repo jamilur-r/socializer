@@ -93,3 +93,24 @@ export const getAllUser = async (req, res) => {
     });
   }
 };
+
+export const validateUsername = async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    const user = await User.findOne({ username: username });
+    if (user) {
+      return res.status(200).json({
+        userExist: true,
+      });
+    } else {
+      return res.status(200).json({
+        userExist: false,
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      msg: "failed to make request",
+    });
+  }
+};
