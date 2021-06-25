@@ -22,10 +22,12 @@ export const signUpUser = async (req, res) => {
 
       return res.status(200).json({
         token: "Bearer " + token,
-        ...result,
+        user: {...result},
       });
     }
   } catch (error) {
+    console.log(error);
+    
     return res.status(401).json({
       msg: "Error while sigining up",
     });
@@ -55,7 +57,7 @@ export const signInUser = async (req, res) => {
         const token = sign(result, process.env.SECRET, { expiresIn: "7d" });
         return res.status(200).json({
           token: "Bearer " + token,
-          ...result,
+          user: {...result},
         });
       } else {
         return res.status(403).json({

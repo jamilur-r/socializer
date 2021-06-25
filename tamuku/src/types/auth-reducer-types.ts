@@ -1,5 +1,5 @@
 export interface UserType {
-  id: string;
+  id?: string;
   username: string;
   name: {
     first: string;
@@ -13,19 +13,20 @@ export interface UserType {
   profile_banner?: string;
 }
 
-export interface AuthType{
-    isAuth: boolean;
-    token: string | null;
-    user: UserType | null;
+export interface AuthType {
+  isAuth: boolean;
+  token: string | null;
+  user: UserType | null;
 }
 
-const SIGNIN = 'signin';
-const SIGNUP = 'signup';
-const LOGOUT = 'logout';
+const SIGNIN = "signin";
+const SIGNUP = "signup";
+const LOGOUT = "logout";
+const ERROR = "error";
 
 interface SignInAction {
   type: typeof SIGNIN;
-  payload: AuthType
+  payload: AuthType;
 }
 
 interface SignUpAction {
@@ -34,8 +35,15 @@ interface SignUpAction {
 }
 
 interface LogoutAction {
-  type: typeof LOGOUT
+  type: typeof LOGOUT;
 }
 
+interface ERRORACTION {
+  type: typeof ERROR;
+}
 
-export type AuthActions = SignInAction | SignUpAction | LogoutAction
+export type AuthActions =
+  | SignInAction
+  | SignUpAction
+  | LogoutAction
+  | ERRORACTION;

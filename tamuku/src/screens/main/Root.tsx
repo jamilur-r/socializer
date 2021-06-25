@@ -1,12 +1,24 @@
 import React from "react";
-import { SafeAreaView, Text } from "react-native";
+import { connect, ConnectedProps } from "react-redux";
+import { FullScreenCol, ButtonSTC, TextSTC } from "../../styles/global.stc";
 
-const Root = () => {
+interface Props extends RXProps {}
+const Root = ({ logout }: Props) => {
   return (
-    <SafeAreaView>
-      <Text>ROOT</Text>
-    </SafeAreaView>
+    <FullScreenCol>
+      <ButtonSTC onPress={() => logout()}>
+        <TextSTC>LOGOUT</TextSTC>
+      </ButtonSTC>
+    </FullScreenCol>
   );
 };
+const mapDispatch = {
+  logout: () => ({
+    type: "logout",
+  }),
+};
 
-export default Root;
+const connector = connect(null, mapDispatch);
+type RXProps = ConnectedProps<typeof connector>;
+
+export default connector(Root);

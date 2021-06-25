@@ -71,7 +71,7 @@ const UserSchema = new Schema<UserType, UserModel, UserType>(
 
 UserSchema.pre("save", async function () {
   const user = this;
-  const hashpass = await hash(user.password, process.env.SECRET);
+  const hashpass = await hash(user.password, 12);
   user.password = hashpass;
 });
 

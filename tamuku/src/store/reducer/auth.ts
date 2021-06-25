@@ -32,7 +32,13 @@ export const AuthReducer = (
         token: null,
         user: null,
       };
-
+    case "error":
+      return {
+        ...state,
+        isAuth: false,
+        token: null,
+        user: null,
+      };
     default:
       return state;
   }
