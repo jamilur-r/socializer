@@ -3,10 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { connect, ConnectedProps } from "react-redux";
 import { AppState } from "../store";
-import Root from "../screens/main/Root";
 import Signup from "../screens/auth/Signup";
 import Signin from "../screens/auth/Signin";
 import SplashScreen from "../screens/auth/SplashScreen";
+import HomeRoute from "./HomeRoute";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,7 @@ const BaseRoute = ({ auth }: Props) => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {auth ? (
           <>
-            <Stack.Screen name="home" component={Root} />
+            <Stack.Screen name="home" component={HomeRoute} />
           </>
         ) : (
           <>

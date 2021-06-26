@@ -8,9 +8,9 @@ export interface UserType {
   email: string;
   password: string;
   role: string;
-  date_of_birth?: string;
-  profile_picture?: string;
-  profile_banner?: string;
+  date_of_birth?: string | undefined;
+  profile_picture?: string | undefined;
+  profile_banner?: string | undefined;
 }
 
 export interface AuthType {

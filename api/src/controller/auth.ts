@@ -26,7 +26,6 @@ export const signUpUser = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     
     return res.status(401).json({
       msg: "Error while sigining up",

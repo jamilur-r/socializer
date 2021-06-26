@@ -1,0 +1,110 @@
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { StatusBar, TouchableOpacity, View } from "react-native";
+import { connect, ConnectedProps } from "react-redux";
+import { AppState } from "../../store";
+import {
+  MainView,
+  TopSection,
+  TopIcons,
+  UserInfo,
+  UserImage,
+  NoImage,
+  Counters,
+  Counts,
+} from "../../styles/profile.stc";
+import { TextSTC } from "../../styles/global.stc";
+import { ProfileRouteType } from "../../types/route-types";
+import ProfileCompletion from "../../widgets/ProfileCompletion";
+import { Entypo, Feather } from "@expo/vector-icons";
+
+interface Props extends RXProps {
+  navigation: BottomTabNavigationProp<ProfileRouteType, "profile_index">;
+}
+
+const ProfileIndex = ({ navigation, user }: Props) => {
+  return (
+    <>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+      <MainView>
+        <ProfileCompletion navigation={navigation} />
+        <TopSection
+          source={
+            user && user.profile_banner
+              ? { uri: user.profile_banner }
+              : require("../../images/profile-banner.jpg")
+          }
+        >
+          <TopIcons>
+            <TouchableOpacity>
+              <Entypo name="shop" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Feather name="message-circle" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('profile_edit')}>
+              <Feather name="edit" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('settings')}>
+              <Feather name="settings" size={24} color="#fff" />
+            </TouchableOpacity>
+          </TopIcons>
+
+          <UserInfo>
+            {user && user.profile_picture ? (
+              <UserImage source={{ uri: user.profile_picture }} />
+            ) : (
+              <TouchableOpacity>
+                <NoImage>
+                  <Feather name="user" size={30} color="#fff" />
+                </NoImage>
+              </TouchableOpacity>
+            )}
+            <View
+              style={{
+                marginLeft: 20,
+              }}
+            >
+              <TextSTC color="#fff" size="20px" family="bold">
+                {user?.name.first} {user?.name.last}
+              </TextSTC>
+              <TextSTC color="#fff" size="20px" family="bold">
+                #{user?.username}
+              </TextSTC>
+            </View>
+          </UserInfo>
+          <Counters>
+            <Counts>
+              <TextSTC color="#fff" size="20px" family="semi">
+                0
+              </TextSTC>
+              <TextSTC color="#fff">Following</TextSTC>
+            </Counts>
+            <Counts>
+              <TextSTC color="#fff" size="20px" family="semi">
+                0
+              </TextSTC>
+              <TextSTC color="#fff">Follower</TextSTC>
+            </Counts>
+            <Counts>
+              <TextSTC color="#fff" size="20px" family="semi">
+                0
+              </TextSTC>
+              <TextSTC color="#fff">Likes</TextSTC>
+            </Counts>
+          </Counters>
+        </TopSection>
+      </MainView>
+    </>
+  );
+};
+
+const mapSatte = (state: AppState) => ({
+  user: state.auth.user,
+});
+
+const connector = connect(mapSatte);
+
+type RXProps = ConnectedProps<typeof connector>;
+
+export default connector(ProfileIndex);

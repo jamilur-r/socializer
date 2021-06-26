@@ -19,3 +19,23 @@ export const signUpUser = async (data: UserType) => {
     return false;
   }
 };
+
+export const signInUser = async (data: {
+  identifier: string;
+  password: string;
+}) => {
+  const url = API_ENDPOINT + "auth/signin";
+  try {
+    const result = await axios.post(url, {
+      ...data,
+    });
+
+    if (result.status === 200) {
+      return result.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return false;
+  }
+};
