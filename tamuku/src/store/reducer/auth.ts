@@ -39,6 +39,11 @@ export const AuthReducer = (
         token: null,
         user: null,
       };
+    case "update_user":
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return state;
   }

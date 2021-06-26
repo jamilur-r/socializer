@@ -39,3 +39,29 @@ export const signInUser = async (data: {
     return false;
   }
 };
+
+export const updateUser = async (data: any, token: string | null) => {
+  const url = API_ENDPOINT + `auth/update/${data.id}`;
+
+  try {
+    const result = await axios.post(
+      url,
+      {
+        name: {
+          first: data.first,
+          last: data.last,
+        },
+        date_of_birth: data.dob,
+      },
+      { headers: { Authorization: token } }
+    );
+    if (result.status === 200) {
+      
+      return result.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+};

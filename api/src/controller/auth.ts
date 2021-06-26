@@ -22,11 +22,10 @@ export const signUpUser = async (req, res) => {
 
       return res.status(200).json({
         token: "Bearer " + token,
-        user: {...result},
+        user: { ...result },
       });
     }
   } catch (error) {
-    
     return res.status(401).json({
       msg: "Error while sigining up",
     });
@@ -56,7 +55,7 @@ export const signInUser = async (req, res) => {
         const token = sign(result, process.env.SECRET, { expiresIn: "7d" });
         return res.status(200).json({
           token: "Bearer " + token,
-          user: {...result},
+          user: { ...result },
         });
       } else {
         return res.status(403).json({
@@ -109,6 +108,26 @@ export const validateUsername = async (req, res) => {
         userExist: false,
       });
     }
+  } catch (error) {
+    return res.status(400).json({
+      msg: "failed to make request",
+    });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const data = req.body;
+    const id = req.params.id;
+
+    await User.findOneAndUpdate({ _id: id }, { ...data });
+    const result = await User.findOne({ _id: id });
+
+    const updated = result.toJSON();
+    
+    return res.status(200).json({
+      ...updated,
+    });
   } catch (error) {
     return res.status(400).json({
       msg: "failed to make request",

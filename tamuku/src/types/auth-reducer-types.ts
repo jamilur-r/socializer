@@ -23,6 +23,7 @@ const SIGNIN = "signin";
 const SIGNUP = "signup";
 const LOGOUT = "logout";
 const ERROR = "error";
+const UPDATE_USER = "update_user";
 
 interface SignInAction {
   type: typeof SIGNIN;
@@ -42,8 +43,13 @@ interface ERRORACTION {
   type: typeof ERROR;
 }
 
+interface UPDATEUSER {
+  type: typeof UPDATE_USER;
+  payload: UserType;
+}
 export type AuthActions =
   | SignInAction
   | SignUpAction
   | LogoutAction
-  | ERRORACTION;
+  | ERRORACTION
+  | UPDATEUSER;
