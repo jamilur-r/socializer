@@ -4,8 +4,11 @@ import {
   signInUser,
   signUpUser,
   updateUser,
+  uploadBanner,
+  uploadDP,
   validateUsername,
 } from "../controller/auth";
+import { upload } from "../middleware/photo-upload";
 import { validateToken } from "../middleware/validate-token";
 
 export const AuthRouter = express.Router();
@@ -15,3 +18,5 @@ AuthRouter.post("/signin", signInUser);
 AuthRouter.post("/signup", signUpUser);
 AuthRouter.get("/validate-username/:username", validateUsername);
 AuthRouter.post("/update/:id", validateToken, updateUser);
+AuthRouter.post('/upload/dp/:id', validateToken, upload.single('dp'), uploadDP)
+AuthRouter.post('/upload/banner/:id', validateToken, upload.single('banner'), uploadBanner)

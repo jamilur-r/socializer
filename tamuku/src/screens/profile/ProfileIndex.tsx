@@ -23,6 +23,8 @@ interface Props extends RXProps {
 }
 
 const ProfileIndex = ({ navigation, user }: Props) => {
+  console.log(user);
+  
   return (
     <>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />

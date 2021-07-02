@@ -43,6 +43,7 @@ export const UserInfo = styled.View`
 export const UserImage = styled.Image`
   width: 70px;
   height: 70px;
+  border-radius: 200px;
 `;
 
 export const NoImage = styled.View`
@@ -120,3 +121,52 @@ export const Header = styled.View`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const DialogWrap = styled.View`
+  width: 85%;
+  height: 250px;
+  background: #002d57;
+
+  position: absolute;
+  top: 25%;
+  left: 7.5%;
+  border-radius: 10px;
+`
+
+export const UploadWrap = styled.View`
+  width: 85%;
+  margin: 25px auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`
+
+export const UploadButton = styled.TouchableOpacity`
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+`
+
+export const DialogActions = styled.View`
+  width: 100%;
+  background-color: #F4D160;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`

@@ -1,5 +1,6 @@
 import { sign } from "jsonwebtoken";
 import User from "../model/user";
+import { IP } from "../utils/utils";
 
 export const signUpUser = async (req, res) => {
   const body = req.body;
@@ -124,7 +125,7 @@ export const updateUser = async (req, res) => {
     const result = await User.findOne({ _id: id });
 
     const updated = result.toJSON();
-    
+
     return res.status(200).json({
       ...updated,
     });
@@ -134,3 +135,48 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+
+export const uploadDP = async (req, res) => {
+  const dp = req.file;
+  const user = req.params.id
+
+  const dp_url = `http://${IP}:${process.env.PORT}/media/${dp.filename}`
+  try {
+    await User.findOneAndUpdate({ _id: user }, { profile_picture: dp_url })
+    const result = await User.findOne({ _id: user })
+    const updated = result.toJSON()
+
+    return res.status(200).json({
+      ...updated
+    })
+  } catch (error) {
+
+    return res.status(400).json({
+      msg: "failed to make request",
+    });
+  }
+}
+
+export const uploadBanner = async (req, res) => {
+  const banner = req.file;
+  const user = req.params.id
+
+  const banner_url = `http://${IP}:${process.env.PORT}/media/${banner.filename}`
+  try {
+    await User.findOneAndUpdate({ _id: user }, { profile_banner: banner_url })
+    const result = await User.findOne({ _id: user })
+    const updated = result.toJSON()
+
+    return res.status(200).json({
+      ...updated
+    })
+  } catch (error) {
+    console.log(error);
+    
+    return res.status(400).json({
+      msg: "failed to make request",
+    });
+  }
+}
+
