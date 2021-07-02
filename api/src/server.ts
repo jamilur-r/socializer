@@ -4,9 +4,9 @@ import { json, urlencoded } from "body-parser";
 import { connect } from "mongoose";
 import { BaseRouter } from "./routes/index";
 import path from 'path';
-
-
 const app = express();
+
+
 
 app.use(cors());
 app.use(json());
@@ -38,5 +38,7 @@ app.get('/test', (req, res) => {
 app.use("/", BaseRouter);
 
 app.listen(PORT, () =>
-  console.log(`SERVER RUNNING AT http://localhost:${PORT}`)
+console.log(`MAIN SERVER @ http://localhost:${PORT}`)
 );
+
+require('../post-server/post-server')
