@@ -38,7 +38,7 @@ const Signin = ({ validate, signinError, navigation }: Props) => {
   return (
     <FullScreenCol>
       <TextSTC color="#272729" size="48px" family="bold">
-        SIGN UP
+        SIGN IN
       </TextSTC>
       <InputSTC
         style={{ marginBottom: 15 }}
