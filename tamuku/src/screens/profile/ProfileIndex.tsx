@@ -17,14 +17,37 @@ import { TextSTC } from "../../styles/global.stc";
 import { ProfileRouteType } from "../../types/route-types";
 import ProfileCompletion from "../../widgets/ProfileCompletion";
 import { Entypo, Feather } from "@expo/vector-icons";
+import { PostType } from "../../types/post-reducer-types";
+import { useEffect, useState } from "react";
+import { getUserPost } from "../../store/actions/post-action";
+import { calculateLikes, formatNumbers } from "../../utils/utils";
+import PostGrid from "../../widgets/PostGrid";
 
 interface Props extends RXProps {
   navigation: BottomTabNavigationProp<ProfileRouteType, "profile_index">;
 }
 
-const ProfileIndex = ({ navigation, user }: Props) => {
-  console.log(user);
-  
+const ProfileIndex = ({
+  navigation,
+  user,
+  updateUserPost,
+  posts,
+  token,
+}: Props) => {
+  const [likesCount, setLCount] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const result = await getUserPost(user?.id, token);
+      if (result) {
+        updateUserPost(result);
+        setLCount(formatNumbers(calculateLikes(result)));
+      } else {
+        alert("No post found");
+      }
+    })();
+  }, []);
+
   return (
     <>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -44,10 +67,12 @@ const ProfileIndex = ({ navigation, user }: Props) => {
             <TouchableOpacity>
               <Feather name="message-circle" size={24} color="#fff" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('profile_edit')}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("profile_edit")}
+            >
               <Feather name="edit" size={24} color="#fff" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('settings')}>
+            <TouchableOpacity onPress={() => navigation.navigate("settings")}>
               <Feather name="settings" size={24} color="#fff" />
             </TouchableOpacity>
           </TopIcons>
@@ -90,12 +115,13 @@ const ProfileIndex = ({ navigation, user }: Props) => {
             </Counts>
             <Counts>
               <TextSTC color="#fff" size="20px" family="semi">
-                0
+                {likesCount}
               </TextSTC>
               <TextSTC color="#fff">Likes</TextSTC>
             </Counts>
           </Counters>
         </TopSection>
+        {posts && <PostGrid posts={posts} />}
       </MainView>
     </>
   );
@@ -103,9 +129,17 @@ const ProfileIndex = ({ navigation, user }: Props) => {
 
 const mapSatte = (state: AppState) => ({
   user: state.auth.user,
+  token: state.auth.token,
+  posts: state.user_posts,
 });
 
-const connector = connect(mapSatte);
+const mapDispatch = {
+  updateUserPost: (data: PostType[]) => ({
+    type: "get-user-post",
+    payload: data,
+  }),
+};
+const connector = connect(mapSatte, mapDispatch);
 
 type RXProps = ConnectedProps<typeof connector>;
 

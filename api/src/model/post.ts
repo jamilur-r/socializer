@@ -6,7 +6,7 @@ interface PostType extends Document {
     body: string;
     post_type: string;
     file_url: string;
-    likes: [string];
+    likes: string[];
     comments: [{
         uid: Schema.Types.ObjectId;
         body: string;
@@ -34,7 +34,6 @@ const PostSchema = new Schema<PostType, PostModel, PostType>(
         },
         likes: [{
             type: String,
-            unique: true,
         }],
         comments: [
             {

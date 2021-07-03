@@ -3,6 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Root from "../screens/main/Root";
 import { Feather } from "@expo/vector-icons";
 import ProfileRoute from "./ProfileRoute";
+import AddPost from "../screens/post/AddPost";
+import SearchIndex from "../screens/search/SearchIndex";
+import NotiIndex from "../screens/notification/NotiIndex";
 const Tab = createBottomTabNavigator();
 
 const HomeRoute = () => {
@@ -26,7 +29,7 @@ const HomeRoute = () => {
       />
       <Tab.Screen
         name="search"
-        component={Root}
+        component={SearchIndex}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="search" color={color} size={24} />
@@ -35,7 +38,7 @@ const HomeRoute = () => {
       />
       <Tab.Screen
         name="post"
-        component={Root}
+        component={AddPost}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="plus-square" color={color} size={24} />
@@ -44,7 +47,7 @@ const HomeRoute = () => {
       />
       <Tab.Screen
         name="noti"
-        component={Root}
+        component={NotiIndex}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="bell" color={color} size={24} />

@@ -12,6 +12,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import AppLoading from "expo-app-loading";
 import BaseRoute from "./src/routes/BaseRoute";
+
 export default function App() {
   let [fontloaded] = useFonts({
     norm: Poppins_400Regular,
@@ -19,6 +20,7 @@ export default function App() {
     med: Poppins_500Medium,
     bold: Poppins_700Bold,
   });
+  
   if (!fontloaded) {
     return <AppLoading />;
   } else {

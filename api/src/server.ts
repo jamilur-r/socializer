@@ -4,10 +4,11 @@ import { json, urlencoded } from "body-parser";
 import { connect } from "mongoose";
 import { BaseRouter } from "./routes/index";
 import path from 'path';
+import morgan from 'morgan'
 const app = express();
 
 
-
+app.use(morgan('tiny'))
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: false }));
@@ -30,15 +31,12 @@ const DB_URI = process.env.DB_URI || "mongodb://localhost:27017/tamuku";
     console.log(error);
   }
 })();
-app.get('/test', (req, res) => {
-  return res.status(200).json({
-    msg: 'TESTING API'
-  })
-})
+
+
 app.use("/", BaseRouter);
 
 app.listen(PORT, () =>
 console.log(`MAIN SERVER @ http://localhost:${PORT}`)
 );
 
-require('../post-server/post-server')
+require('./post-server/post-server')
