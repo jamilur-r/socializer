@@ -39,7 +39,6 @@ export const createPost = async (req, res) => {
       ...result,
     });
   } catch (error) {
-    console.log(error);
 
     return res.status(400).json({
       msg: "Failed to create post",

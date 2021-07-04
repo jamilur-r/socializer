@@ -30,3 +30,8 @@ export type ProfileRouteType = {
 export type SettingRouteType = {
   settings_index: undefined;
 };
+
+export type StoreRouteType = {
+  store_index: undefined;
+  add_product: undefined;
+}

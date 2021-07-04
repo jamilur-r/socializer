@@ -19,11 +19,13 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("get-posts", async () => {
-    const data = await Post.find().limit(30).populate("uid");
+    const data = await Post.find()
+      .limit(30)
+      .populate("uid")
+      .populate("product");
     data.map((item) => posts.unshift(item.toJSON()));
     io.emit("get-posts", posts);
   });
-
 });
 
 post_server.listen(5001, () =>

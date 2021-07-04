@@ -3,6 +3,7 @@ import { combineReducers, createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { AuthReducer } from "./reducer/auth";
 import { PostReducer } from "./reducer/post";
+import { ProductReducer } from "./reducer/product";
 import { UserPostReducer } from "./reducer/user-posts";
 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: AuthReducer,
   posts: PostReducer,
-  user_posts: UserPostReducer
+  user_posts: UserPostReducer,
+  product: ProductReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

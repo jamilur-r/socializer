@@ -62,7 +62,7 @@ const ProfileIndex = ({
           }
         >
           <TopIcons>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("store")}>
               <Entypo name="shop" size={24} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity>
