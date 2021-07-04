@@ -22,9 +22,10 @@ import { useEffect, useState } from "react";
 import { getUserPost } from "../../store/actions/post-action";
 import { calculateLikes, formatNumbers } from "../../utils/utils";
 import PostGrid from "../../widgets/PostGrid";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 interface Props extends RXProps {
-  navigation: BottomTabNavigationProp<ProfileRouteType, "profile_index">;
+  navigation: StackNavigationProp<ProfileRouteType, "profile_index">;
 }
 
 const ProfileIndex = ({
@@ -121,7 +122,7 @@ const ProfileIndex = ({
             </Counts>
           </Counters>
         </TopSection>
-        {posts && <PostGrid posts={posts} />}
+        {posts && <PostGrid navigation={navigation} posts={posts} />}
       </MainView>
     </>
   );

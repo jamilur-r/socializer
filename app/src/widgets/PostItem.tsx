@@ -19,6 +19,8 @@ import { addLike } from "../store/actions/post-action";
 import { AppState } from "../store/index";
 import { useState } from "react";
 import AddComment from "./AddComment";
+import { Video, AVPlaybackStatus } from "expo-av";
+import { useRef } from "react";
 
 interface Props extends RXProps {
   post: PostType;
@@ -30,11 +32,14 @@ const PostItem = ({ post, user, addOrRmLike, uppost, token }: Props) => {
   });
   const [showComment, setShowC] = useState<boolean>(false);
 
+  const [status, setStatus] = useState({});
+  const video = useRef(null);
+
   const handleLike = async () => {
     const result = await addLike(
       {
         pid: post.id,
-        uid: user.id,
+        uid: user?.id,
       },
       token
     );
@@ -71,7 +76,7 @@ const PostItem = ({ post, user, addOrRmLike, uppost, token }: Props) => {
               #{post.uid.username}
             </TextSTC>
           </View>
-          {post.uid.username === user.username ? (
+          {post.uid.username === user?.username ? (
             <></>
           ) : (
             <TouchableOpacity>
@@ -93,7 +98,7 @@ const PostItem = ({ post, user, addOrRmLike, uppost, token }: Props) => {
               name="heart"
               size={24}
               color={
-                user.id && post.likes.includes(user.id) ? "#ff2d55" : "#fff"
+                user?.id && post.likes.includes(user.id) ? "#ff2d55" : "#fff"
               }
             />
             <TextSTC color="#fff" family="semi">
@@ -135,7 +140,100 @@ const PostItem = ({ post, user, addOrRmLike, uppost, token }: Props) => {
       </ImageBG>
     );
   } else {
-    return <></>;
+    return (
+      <>
+        <Video
+          ref={video}
+          source={{ uri: post.file_url }}
+          useNativeControls
+          resizeMode="cover"
+          isLooping
+          onPlaybackStatusUpdate={(status) => setStatus(status)}
+          style={{
+            width: "100%",
+            height: 800,
+            position: "relative",
+          }}
+        />
+        <UserInfo>
+          <UserDP source={{ uri: post.uid.profile_picture }} />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginRight: 25,
+            }}
+          >
+            <TextSTC family="bold" size="20px" color="#fff">
+              {post?.uid.name.first} {post?.uid.name.last}
+            </TextSTC>
+            <TextSTC family="norm" size="14px" color="#fff">
+              #{post.uid.username}
+            </TextSTC>
+          </View>
+          {post.uid.username === user?.username ? (
+            <></>
+          ) : (
+            <TouchableOpacity>
+              <Feather name="plus-square" size={30} color="#fff" />
+            </TouchableOpacity>
+          )}
+        </UserInfo>
+        <ActionButtonWrap>
+          <TouchableOpacity
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={handleLike}
+          >
+            <Feather
+              name="heart"
+              size={24}
+              color={
+                user?.id && post.likes.includes(user.id) ? "#ff2d55" : "#fff"
+              }
+            />
+            <TextSTC color="#fff" family="semi">
+              {formatNumbers(post.likes.length)}
+            </TextSTC>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={() => setShowC(true)}
+          >
+            <Feather name="message-square" size={24} color="#fff" />
+            <TextSTC color="#fff" family="semi">
+              {formatNumbers(post.comments.length)}
+            </TextSTC>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Feather name="share-2" size={24} color="#fff" />
+          </TouchableOpacity>
+        </ActionButtonWrap>
+
+        <BodyWrap>
+          <TextSTC color="#fff" family="med" size="15px">
+            {post.body}
+          </TextSTC>
+        </BodyWrap>
+        <AddComment
+          post={post}
+          comments={post.comments}
+          visiblity={{
+            getter: showComment,
+            setter: setShowC,
+          }}
+        />
+      </>
+    );
   }
 };
 
