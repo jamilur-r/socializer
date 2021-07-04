@@ -113,11 +113,34 @@ export const IP = "<REPLACE_HERE";
 
 # Project Images 
 
-![](images/1.jpg)
-![](images/2.jpg)
-![](images/3.jpg)
-![](images/4.jpg)
-![](images/5.jpg)
-![](images/6.jpg)
-![](images/7.jpg)
-![](images/8.jpg)
+<p align="center">
+  <img width="180" height="350" src="images/1.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/2.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/3.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/4.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/5.jpg">
+</p>
+<p align="center">
+  <img width="180" height="350" src="images/6.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/7.jpg">
+</p>
+
+<p align="center">
+  <img width="180" height="350" src="images/8.jpg">
+</p>
+
